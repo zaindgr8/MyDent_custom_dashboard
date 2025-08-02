@@ -181,8 +181,7 @@ const templateMenuItems: SidebarItem[] = [
         {!collapsed && (
           <div className="px-4 mb-2">
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Templates
-            </h3>
+              post-op call            </h3>
           </div>
         )}
         <ul className="space-y-2"> 

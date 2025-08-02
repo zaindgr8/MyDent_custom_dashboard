@@ -202,8 +202,8 @@ export default function CreateCallsPage() {
       // Treatment fields - matching your CSV exactly
       treatment: ["treatment", "procedure", "service"],
       // Notes and prescription fields - matching your CSV exactly
-      post_treatment_notes: ["postTreatment_Notes", "post-treatment notes", "post treatment notes", "notes", "treatment notes", "post_treatment_notes"],
-      post_treatment_prescription: ["postTreatment_Prescription", "prescription", "post-treatment prescription", "post treatment prescription", "medication", "post_treatment_prescription", "post-treatment perscription"],
+      post_treatment_notes: ["posttreatment_notes", "post-treatment notes", "post treatment notes", "notes", "treatment notes", "post_treatment_notes"],
+      post_treatment_prescription: ["posttreatment_prescription", "prescription", "post-treatment prescription", "post treatment prescription", "medication", "post_treatment_prescription", "post-treatment perscription"],
       // Follow-up fields - matching your CSV exactly
       follow_up_appointment: ["followup_appointment", "follow up appointment", "follow-up appointment", "followup", "next appointment", "follow_up_appointment"],
       post_ops_follow_up_notes: ["followup_notes", "follow up notes", "follow-up notes", "post-ops follow up notes", "post ops notes", "followup notes", "post_ops_follow_up_notes"],
@@ -216,7 +216,7 @@ export default function CreateCallsPage() {
     // Helper function to find field index by mapping
     const findFieldIndex = (fieldMappings: string[]) => {
       return headers.findIndex(header => 
-        fieldMappings.some(mapping => header.includes(mapping))
+        fieldMappings.some(mapping => header.toLowerCase().includes(mapping.toLowerCase()))
       )
     }
 
@@ -270,6 +270,10 @@ export default function CreateCallsPage() {
         const fieldIndex = findFieldIndex(mappings)
         if (fieldIndex !== -1 && row[fieldIndex]) {
           metadata[fieldName] = row[fieldIndex]
+          console.log(`✅ MAPPED: ${fieldName} = "${row[fieldIndex]}" (from column ${fieldIndex}: "${headers[fieldIndex]}")`)
+        } else {
+          console.log(`❌ NOT FOUND: ${fieldName} - looking for: [${mappings.join(', ')}]`)
+          console.log(`   Available headers: [${headers.join(', ')}]`)
         }
       })
 
